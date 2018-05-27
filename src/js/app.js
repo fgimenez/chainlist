@@ -45,9 +45,9 @@ App = {
   initContract: function() {
     $.getJSON('ChainList.json', function(chainListArtifact){
       // get the contract artifact file and use it to instantiate a truffle contract abstraction
-      App.contracts.chainLists = TruffleContract(chainListArtifact);
+      App.contracts.ChainList = TruffleContract(chainListArtifact);
       // set the provider for our contract
-      App.contracts.chainLists.setProvider(App.web3Provider);
+      App.contracts.ChainList.setProvider(App.web3Provider);
       // retrieve article from contract
       return App.reloadArticles();
 
@@ -62,8 +62,8 @@ App = {
     $('#articlesRow').empty();
 
     App.contracts.ChainList.deployed().
-      then(i => return i.getArticle()).
-      then(article =>
+      then(function(i){ return i.getArticle(); }).
+      then(function(article){
            if(article[0] == 0x0){
              return;
            }
@@ -79,9 +79,9 @@ App = {
            articleTemplate.find('.article-seller').text(seller);
 
            $('#articlesRow').append(articleTemplate.html());
-          ).catch(function(err){
-            console.log(err.message);
-          });
+      }).catch(function(err){
+        console.log(err.message);
+      });
   },
 };
 
