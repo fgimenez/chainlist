@@ -8,7 +8,7 @@ contract ChainList {
   uint256 price;
 
   constructor() public {
-    sellArticle("Default article", "Default description", 10);
+    sellArticle("Default article", "Default description", 10000000000000000000);
   }
 
   function sellArticle(string _name, string _description, uint256 _price) public {

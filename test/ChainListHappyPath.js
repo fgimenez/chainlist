@@ -14,7 +14,7 @@ contract('ChainList', ([creator, seller]) => {
     assert.equal(data[0], creator, "initial seller must be creator");
     assert.equal(data[1], "Default article", "initial article name must be default");
     assert.equal(data[2], "Default description", "article description must be default");
-    assert.equal(data[3].toNumber(), 10, "article price be default");
+    assert.equal(data[3].toNumber(), 10000000000000000000, "article price be default");
   });
 
   it("should sell an article", async () => {
