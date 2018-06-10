@@ -26,4 +26,15 @@ contract('ChainList', ([creator, seller]) => {
     assert.equal(data[2], articleDescription, "article description must be " + articleDescription);
     assert.equal(data[3].toNumber(), articlePrice, "article price must be " + articlePrice);
   });
+
+  it("should trigger an event when a new article is sold", async () => {
+    const instance = await ChainList.deployed();
+    const receipt = await instance.sellArticle(articleName, articleDescription, articlePrice, {from: seller});
+
+    assert.equal(receipt.logs.length, 1, "one event should have been triggered");
+    assert.equal(receipt.logs[0].event, "LogSellArticle", "LogSellArticle event should have been emited");
+    assert.equal(receipt.logs[0].args._seller, seller, `event seller should be ${seller}`);
+    assert.equal(receipt.logs[0].args._name, articleName, `event seller should be ${articleName}`);
+    assert.equal(receipt.logs[0].args._price, articlePrice, `event seller should be ${articlePrice}`);
+  });
 });
